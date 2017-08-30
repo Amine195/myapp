@@ -1,0 +1,70 @@
+<style>
+    body{
+        background: url('/MyImg/background.jpg') no-repeat fixed center;
+        background-size: cover;
+    }
+</style>
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="users">
+    <div class="container">         
+        <h1><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</h1>
+        <hr>
+
+        <% if(hasErrors) { %>
+            <% for(var i = 0; i < messages.length; i++ ) { %>
+                <h5
+                style="color:#f44336;
+                text-align:center;">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true">
+                </i>&nbsp;&nbsp;&nbsp;&nbsp; <%= messages[i] %></h5>
+            <% } %> 
+        <% } %>
+
+        <form id="register" action="/register" method="post">
+
+            <label for="username">Username</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                </div>
+            </div>
+
+            <label for="email">Email address</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    <input type="email" name="email" class="form-control" placeholder="Enter Email">
+                </div>
+            </div>
+
+            <label for="password">Password</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                </div>
+                <div class="progress password-progress">
+                    <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
+                </div>
+            </div>
+
+            <label for="confirmationPassword">Confirm Password</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <input type="password" name="confirmationPassword" class="form-control" placeholder="Confirm your Password">
+                </div>
+            </div>
+
+            
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <h5 class="pull-right">Vous Avez Un Compte ?<a href="/login"> Login</a></h5>
+            </div>
+        </form> 
+    </div>
+</div>

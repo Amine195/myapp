@@ -1,0 +1,82 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="row">
+    <div class="col-lg-6 col-md-offset-3">
+
+        <h1> Ajouter un nouveau produit</h1>
+        <hr>
+
+        <form method="post" action="/add-product">
+
+            <label for="name">Name</label>
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Enter Name of Product">
+            </div>
+
+            <label for="category">Category: </label>
+            <div class="form-group">
+                <select name="category" class="form-control">
+                    <option value="#">Choisir une category</option>
+                    <option value="voiture">Voiture</option>
+                    <option value="telephone">Telephone</option>
+                </select>
+            </div>
+
+            <label for="subcategory">SubCategory: </label>
+            <div class="form-group">
+                <select name="subcategory" class="form-control">
+                    <option value="#">Choisir une subcategory</option>
+                    <option value="peugeaot">Peugeaot</option>
+                    <option value="reneault">Reneault</option>
+                </select>
+            </div>
+
+            <label for="wilaya">Wilaya: </label>
+            <div class="form-group">
+                <select name="subcategory" class="form-control">
+                    <option value="#">Choisir une wilaya</option>
+                    <option value="oran">oran</option>
+                    <option value="sidi bel abbes">sidi bel abbes</option>
+                </select>
+            </div>
+
+            <label for="presentation">Presentation: </label>
+            <div class="form-group">
+                <textarea type="text" class="form-control" name="presentation" placeholder="enter your presentation"></textarea>
+            </div>
+
+            <label for="description">Description: </label>
+            <div class="form-group">
+                <textarea type="text" class="form-control" name="description" placeholder="enter your description"></textarea>
+            </div>
+
+            <label for="tel">Numero de Telephone</label>
+            <div class="form-group">
+                <input type="text" name="tel" class="form-control" placeholder="Numero de telephone">
+            </div>
+
+            <!-- pattern="[0-9].{1,} -->
+            <label for="price">Prix: </label>
+            <div class="form-group">
+                <input type="text" name="price" class="form-control" placeholder="prix">
+            </div>
+
+            <label class="image">Image: </label>
+            <div class="form-group">
+                <input type="file" name="image" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">Valider</button>
+
+        </form>
+    </div>
+</div>
+<br>
+
+<% include ../footer/avant-bad-de-page %>
+
+<% include ../footer/bad-de-page %>
+
+<% include ../footer/footer %>

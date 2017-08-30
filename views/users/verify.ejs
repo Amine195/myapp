@@ -1,0 +1,44 @@
+<style>
+    body{
+        background: url('/MyImg/background.jpg') no-repeat fixed center;
+        background-size: cover;
+    }
+</style>
+
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="users">
+    <div class="container">
+        <h1><i class="fa fa-codepen" aria-hidden="true"></i> VERIFY</h1>
+        <hr>
+
+        <% if(hasErrors) { %>
+            <% for(var i = 0; i < messages.length; i++ ) { %>
+                <h5
+                style="color:#f44336;
+                text-align:center;">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true">
+                </i>&nbsp;&nbsp;&nbsp;&nbsp; <%= messages[i] %></h5>
+            <% } %> 
+        <% } %>
+
+        <% if(noErrors) { %>
+            <h5 style="color: #2196f3;
+            text-align:center;">
+            <i class="fa fa-info-circle" aria-hidden="true">
+            </i>&nbsp;&nbsp;&nbsp;&nbsp; <%= info %></h5>
+        <% } %>
+
+        <form action="/verify" method="post">
+            <label for="verify">Secret Token</label>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-code" aria-hidden="true"></i></span>
+                <input type="text" name="secretToken" class="form-control" placeholder="Enter secretToken">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
