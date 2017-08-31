@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var integerValidator = require('mongoose-integer');
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
@@ -13,7 +14,10 @@ var productSchema = new Schema({
     modified: Date,
     tel: Number,
     price: Number,
+    viewcount: {type: Number, integer: true},
     image: String
 });
+
+productSchema.plugin(integerValidator);
 
 module.exports = mongoose.model('Product', productSchema);

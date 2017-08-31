@@ -63,6 +63,7 @@ app.post('/add-product', function(req, res, next) {
     product.created = Date.now();
     product.tel = req.body.tel;
     product.price = req.body.price;
+    product.viewcount = 0;
     product.image = req.body.image;
 
     product.save(function(err) {
@@ -79,9 +80,13 @@ app.get('/product/:id', function(req, res, next) {
         .populate('user')
         .exec(function(err, product) {
         if (err) return next(err);
-        res.render('ecommerce/product-details', {
-            title: 'Details',
-            product: product
+        product.viewcount++;
+        product.save(function (err) {
+            if (err) return next(err);
+            res.render('ecommerce/product-details', {
+                title: 'Details',
+                product: product
+            }); 
         });
     });
 });

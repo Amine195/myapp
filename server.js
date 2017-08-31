@@ -1,5 +1,6 @@
 // Module Import
 var express = require('express');
+var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
@@ -35,6 +36,7 @@ app.use(express.static('public'));
 // Middleware
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
