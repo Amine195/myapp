@@ -1,0 +1,50 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="container-fluid">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="/MyImg/<%= product.image %>" class="img-responsive" />
+            </div>
+            <div class="col-md-4">
+                <blockquote>
+                    <p><%= product.name %></p>
+                    <small>Posted by: <%= product.user.username %></small>
+                </blockquote>
+                <blockquote>
+                    <p><%= product.category %></p>
+                    <small><%= product.subcategory %></small>
+                    <small><%= product.wilaya %></small>
+                </blockquote>
+                <blockquote>
+                    <p>Presentation :</p>
+                    <small><%= product.presentation %></small>
+                </blockquote>
+                <blockquote>
+                    <p>Date d'ajout :</p>
+                    <small><%= product.created %></small>
+                </blockquote>
+            </div>
+            <div class="col-md-4">
+                <blockquote>
+                    <p>Description :</p>
+                    <small><%= product.description %>Nulla quis lorem ut libero malesuada feugiat. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</small>
+                </blockquote>
+                <blockquote>
+                    <p>Prix: </p>
+                    <small><%= product.price %></small>
+                </blockquote>
+                <blockquote>
+                    <p>N° Telephone :</p>
+                    <small><%= product.tel %></small>
+                </blockquote>
+            </div>
+        </div>
+    </div> 
+    <div class="col-md-4">
+        
+    </div>
+</div>
+

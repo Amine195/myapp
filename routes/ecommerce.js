@@ -72,4 +72,19 @@ app.post('/add-product', function(req, res, next) {
     });
 });
 
+// details product Page
+app.get('/product/:id', function(req, res, next) {
+    Product
+        .findById({ _id: req.params.id })
+        .populate('user')
+        .exec(function(err, product) {
+        if (err) return next(err);
+        res.render('ecommerce/product-details', {
+            title: 'Details',
+            product: product
+        });
+    });
+});
+
+
 }
