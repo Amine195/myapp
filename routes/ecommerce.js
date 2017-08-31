@@ -68,7 +68,7 @@ app.post('/add-product', function(req, res, next) {
     product.tel = req.body.tel;
     product.price = req.body.price;
     product.viewcount = 0;
-    product.thumbNailImg = req.body.thumbNailImg;
+    product.thumbNailImg = req.body.thumbNailImg[1];
 
     product.save(function(err) {
         if (err) return next(err);
