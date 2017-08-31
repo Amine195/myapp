@@ -1,6 +1,9 @@
 // Import Require
 var User = require('../models/user');
 var Product = require('../models/product');
+var formidable = require('formidable');
+var path = require('path');
+var fs = require('fs');
 
 module.exports = (app) => {
 
@@ -72,6 +75,27 @@ app.post('/add-product', function(req, res, next) {
         // req.flash('success', 'Successfully added a category');
         return res.redirect('/add-product');
     });
+});
+
+// Upload Img for Product Page
+app.post('/upload', (req, res) => {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '../public/uploads');
+    form.on('file', (field, file) => {
+       fs.rename(file.path, path.join(form.uploadDir, file.name), (err) => {
+           if(err){
+               throw err
+           }
+           console.log('File has been renamed');
+       }); 
+    });
+    form.on('error', (err) => {
+        console.log('An error occured', err);
+    });
+    form.on('end', () => {
+        console.log('File upload was successful');
+    });
+    form.parse(req);
 });
 
 // details product Page

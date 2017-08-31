@@ -63,24 +63,63 @@
                 <input type="text" name="price" class="form-control" placeholder="prix">
             </div>
 
-            <label class="image">Image Thumbnail: </label>
-            <div class="form-group">
-                <input type="file" name="thumbNailImg" class="form-control">
+            <div class="form-group ">
+                <label for="">Product Image</label><br>
+                
+                <button class="btn btn-lg" type="button" data-toggle="modal" data-target="#file">Add File</button>
+                <span id="completed"></span>
+                
+                <div id="file" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-title">Upload Image</div>
+                            </div>
+                            
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar"></div>
+                                    </div>
+                                    
+                                    <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+                                    <input type="file" class="form-control" name="upload" id="upload-input" style="display:none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <label class="image">Image Product: </label>
-            <div class="form-group">
-                <input type="file" name="productPhotos" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="file" name="productPhotos" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="file" name="productPhotos" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="file" name="productPhotos" class="form-control">
-            </div>
+            <div class="form-group ">
+                    <label for="">Product Image</label><br>
+                    
+                    <button class="btn btn-lg" type="button" data-toggle="modal" data-target="#file">Add File</button>
+                    <span id="completed"></span>
+                    
+                    <div id="file" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="modal-title">Upload Image</div>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                        
+                                        <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+                                        <input type="file" class="form-control" name="upload" id="upload-input" style="display:none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <button type="submit" class="btn btn-success">Valider</button>
 
