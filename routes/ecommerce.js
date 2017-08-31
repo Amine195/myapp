@@ -65,9 +65,10 @@ app.post('/add-product', function(req, res, next) {
     product.tel = req.body.tel;
     product.price = req.body.price;
     product.viewcount = 0;
-    product.thumbNailImg = req.body.thumbNailImg[1];
+    product.thumbNailImg = req.body.thumbNailImg;
 
     product.save(function(err) {
+        console.log(req.body.thumbNailImg);
         if (err) return next(err);
         // req.flash('success', 'Successfully added a category');
         return res.redirect('/add-product');
