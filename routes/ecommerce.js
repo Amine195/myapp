@@ -35,7 +35,8 @@ app.get('/ecommerce', function (req, res, next) {
     if (req.user) {
         paginate(req, res, next);
     } else {
-        res.render('home', {title: 'Home'});
+        //res.render('home', {title: 'Home'});
+        paginate(req, res, next);
     }
 });
 
@@ -79,15 +80,33 @@ app.get('/product/:id', function(req, res, next) {
         .findById({ _id: req.params.id })
         .populate('user')
         .exec(function(err, product) {
-        if (err) return next(err);
-        product.viewcount++;
-        product.save(function (err) {
-            if (err) return next(err);
-            res.render('ecommerce/product-details', {
-                title: 'Details',
-                product: product
-            }); 
-        });
+        if (err) {
+            return next(err);
+        }
+        if (!product) {
+            res.send('product not found!');
+        } else {
+            if(!req.session.viewedProducts) {
+                req.session.viewedProducts = [];
+            }
+            if(!req.session.viewedProducts.includes(product.id)) {
+                req.session.viewedProducts.push(product.id);
+                product.viewcount++;
+                product.save(function (err) {
+                    if (err) return next(err);
+                    res.render('ecommerce/product-details', {
+                        title: 'Details',
+                        product: product
+                    }); 
+                });
+            }
+            else {
+                res.render('ecommerce/product-details', {
+                    title: 'Details',
+                    product: product
+                }); 
+            }
+        }
     });
 });
 
