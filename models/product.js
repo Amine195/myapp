@@ -15,7 +15,12 @@ var productSchema = new Schema({
     tel: Number,
     price: Number,
     viewcount: {type: Number, integer: true},
-    image: String
+    thumbNailImg: String,
+    productPhotos: {
+        img1: String,
+        img2: String,
+        img3: String
+    }
 });
 
 productSchema.plugin(integerValidator);
