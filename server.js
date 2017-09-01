@@ -3,6 +3,8 @@ var express = require('express');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fileUpload = require('express-fileupload'); // photo de profile
+var path = require('path');
 var validator = require('express-validator');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
@@ -40,6 +42,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(fileUpload());
 app.use(validator());
 app.use(session({
     secret: 'sqlplus8041999',
