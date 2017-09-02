@@ -165,21 +165,22 @@ app.get('/advanced', function (req, res, next) {
 
 app.get('/search-advanced', function(req, res, next) {
 
-    var name = req.param('name');
-    var price = req.param('price');
-    var category = req.param('category');
+    var name = jsesc(req.param('name'));
+    var price = jsesc(req.param('price'));
+    var category = jsesc(req.param('category'));
 
     var searchOptions = {};
 
     name != "" ? searchOptions.name = name :null;
+    
     if (price !== "*") {
         var prices = [price.split(' - ')[0],price.split(' - ')[1]];
-        searchOptions.price = {'>':prices[0],'<':prices[1]};
+        searchOptions.price = {'$gte':prices[0],'$lte':prices[1]};
     }
 
-    category !== "*" ? searchOptions.category = category:null;
- /*    allParams.onSale === "on" ? searchOptions.onSale = true:null;
-    console.log(searchOptions); */
+    category !== "*" ? searchOptions.category = category :null;
+ /*    allParams.onSale === "on" ? searchOptions.onSale = true :null; */
+    console.log(searchOptions); 
 
 
     Product.find(searchOptions).exec(function (err, products) {
