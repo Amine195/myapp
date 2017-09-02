@@ -1,0 +1,45 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="container search-container">
+<h2>Advanced Search</h2>
+<form action="/search-advanced">
+    <div class="form-group">
+    <label for="nameInput">Name</label>
+    <input type="text" class="form-control" id="nameInput" name="name" placeholder="Enter Name">
+    </div>
+
+    <div class="form-group">
+    <label for="priceSelect">Price</label>
+    <select class="form-control" id="priceSelect" name="price">
+        <option value="*">Any</option>
+        <option value="0 - 25">$0 - $25</option>
+        <option value="25 - 50" >$25 - $50</option>
+        <option value="50 - 100" >$50 - $100</option>
+        <option value="100 - 200" >$100 - $200</option>
+        <option value="200 - 500" >$200 - $500</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <label for="categorySelect">Category</label>
+    <select class="form-control" id="categorySelect" name="category">
+        <option value="*" >Any</option>
+        <option value="voiture" >voiture</option>
+        <option value="sidi bel abbes">sidi bel abbes</option>
+    </select>
+    </div>
+
+    <!-- <fieldset class="form-group">
+    <legend>Other</legend>
+    <div class="form-check">
+        <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="onSale">
+        On Sale
+        </label>
+    </div>
+    </fieldset> -->
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+</div>

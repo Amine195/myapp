@@ -1,12 +1,12 @@
 // Module Require
-
+var formidable = require('formidable');
+var path = require('path');
+var fs = require('fs');
+var jsesc = require('jsesc');
 
 // Import Require
 var User = require('../models/user');
 var Product = require('../models/product');
-var formidable = require('formidable');
-var path = require('path');
-var fs = require('fs');
 
 module.exports = (app) => {
 
@@ -139,7 +139,7 @@ app.get('/product/:id', function(req, res, next) {
 
 // Search fonctionalité
 app.get('/search', function(req, res, next) {
-    var q = req.param('q');
+    var q = jsesc(req.param('q'));
 
     Product.find({ name:q }).exec(function (err, products) {
         if (err) {
@@ -153,7 +153,48 @@ app.get('/search', function(req, res, next) {
             title: 'Search',
             products: products,
             noResults:noResults,
-            searchText:q
+            searchText:req.param('q')
+        });
+    });
+});
+
+// Advanced Search
+app.get('/advanced', function (req, res, next) {
+    res.render('ecommerce/advanced-search', {title: 'Advanced-search'});
+});
+
+app.get('/search-advanced', function(req, res, next) {
+
+    var name = req.param('name');
+    var price = req.param('price');
+    var category = req.param('category');
+
+    var searchOptions = {};
+
+    name != "" ? searchOptions.name = name :null;
+    if (price !== "*") {
+        var prices = [price.split(' - ')[0],price.split(' - ')[1]];
+        searchOptions.price = {'>':prices[0],'<':prices[1]};
+    }
+
+    category !== "*" ? searchOptions.category = category:null;
+ /*    allParams.onSale === "on" ? searchOptions.onSale = true:null;
+    console.log(searchOptions); */
+
+
+    Product.find(searchOptions).exec(function (err, products) {
+        if (err) {
+            return next (err);
+        }
+        var noResults = false;
+        if (products.length < 1) {
+            noResults = true
+        }
+        return res.render('ecommerce/search-result', {
+            title: 'Search',
+            products: products,
+            noResults:noResults,
+            searchText:req.param('q')
         });
     });
 });
