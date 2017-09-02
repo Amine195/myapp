@@ -17,6 +17,16 @@
             <% if (user) { %>
                 <li><a href='#'>Welcome <%= user.username %></a></li>
                 <li><a href="/logout">Logout</a></li>
+                <form class="navbar-form navbar-left" action="/search">
+                    <div class="form-group">
+                    <% if( typeof searchText!=='undefined' ){ %>
+                        <input type="text" name="q" value="<%= searchText %>" class="form-control" placeholder="Search...">
+                    <% } else { %>
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <% } %>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </form>
             <% } %>
             <% if (!user) { %>
             <li class="dropdown">

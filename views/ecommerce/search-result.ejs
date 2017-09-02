@@ -1,0 +1,22 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="container product-list-container">
+<!-- Example row of columns -->
+<h1>Search Result</h1>
+<br>
+<div class="row">
+    <% if(noResults){ %> 
+        No Products have been found
+    <% } %>
+    <% products.forEach(function(product){ %>
+    <div class="col-md-4 product-container">
+        <h3><%= product.name %></h3>
+        <img src="/uploads/<%= product.thumbNailImg %>" alt="">
+        $ <%= product.price %>
+        <p><%= product.description %></p>
+    </div>
+    <% }) %>
+</div>
+</div>

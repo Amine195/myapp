@@ -137,5 +137,25 @@ app.get('/product/:id', function(req, res, next) {
     });
 });
 
+// Search fonctionalité
+app.get('/search', function(req, res, next) {
+    var q = req.param('q');
+
+    Product.find({ name:q }).exec(function (err, products) {
+        if (err) {
+            return next (err);
+        }
+        var noResults = false;
+        if (products.length < 1) {
+            noResults = true
+        }
+        return res.render('ecommerce/search-result', {
+            title: 'Search',
+            products: products,
+            noResults:noResults,
+            searchText:q
+        });
+    });
+});
 
 }
