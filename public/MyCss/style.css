@@ -63,7 +63,7 @@ body{
 .password-progress {
     margin-top: 10px;
     margin-bottom: 0;
-    width: 200px;
+    /* width: 200px; */
     height: 5px;
 }
 
