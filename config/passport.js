@@ -37,6 +37,11 @@ passport.use('local.login', new LocalStrategy({
             return done(null, false, req.flash('error', messages));
         }
 
+        if(user.facebook !== ''){
+            req.flash('error', 'No Account With That Email Exist Or Email is facebook');
+            return done(null, false, req.flash('error', messages));
+        }
+
         if(!user.validPassword(password)){
             messages.push('Password is not Invalid');
             return done(null, false, req.flash('error', messages));
@@ -60,7 +65,7 @@ passport.use(new FacebookStrategy(secret.facebook, (req, token, refreshToken, pr
             newUser.username = profile.displayName;
             newUser.password = newUser.encryptPassword();
             newUser.email = profile._json.email;
-            user.active = true;
+            newUser.active = true;
             newUser.tokens.push({token:token});
 
             newUser.save(function(err) {

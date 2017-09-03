@@ -48,6 +48,11 @@ app.post('/register', registervalidate, function (req, res, next) {
         function(rand, callback) {
             User.findOne({'email':req.body.email}, (err, user) => {
 
+                if( user && user.facebook !== ''){
+                    req.flash('error', 'No Account With That Email Exist Or Email is facebook');
+                    return res.redirect('/register');
+                }
+
                 if(user){
                     req.flash('error', 'User With Email Already Exist.');
                     return res.redirect('/register');
@@ -163,6 +168,11 @@ app.post('/forgot', forgotValidation, function (req, res, next) {
             User.findOne({'email':req.body.email}, (err, user) => {
                 if(!user){
                     req.flash('error', 'No Account With That Email Exist Or Email is Invalid');
+                    return res.redirect('/forgot');
+                }
+
+                if(user.facebook !== ''){
+                    req.flash('error', 'No Account With That Email Exist Or Email is facebook');
                     return res.redirect('/forgot');
                 }
                 
