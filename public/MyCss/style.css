@@ -96,6 +96,10 @@ body{
     margin-bottom: 0px;
 }
 
+.users a.btn.btn-block.btn-social.btn-facebook.btn-lg:hover {
+    color : #2196f3;
+}
+
 
 /* thubmnail */
 .index-content a:hover{
