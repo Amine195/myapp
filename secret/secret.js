@@ -10,5 +10,13 @@ module.exports = {
         profileFields: ['email', 'displayName'],
         callbackURL: 'http://localhost:3000/auth/facebook/callback',
         passReqToCallback: true
+    },
+
+    google: {
+        clientID: '833568054721-3jt1cdokcmhcjcnclgor279dhdd5bf61.apps.googleusercontent.com', //google login app id
+        clientSecret: 'TB18FJXbvYJMWdvr-bKIChU9', //google login secret key
+        profileFields: ['email', 'displayName'],
+        callbackURL: 'http://localhost:3000/auth/google/callback',
+        passReqToCallback: true
     }
 }

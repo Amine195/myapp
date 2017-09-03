@@ -175,6 +175,11 @@ app.post('/forgot', forgotValidation, function (req, res, next) {
                     req.flash('error', 'No Account With That Email Exist Or Email is facebook');
                     return res.redirect('/forgot');
                 }
+
+                if(user.google !== ''){
+                    req.flash('error', 'No Account With That Email Exist Or Email is google');
+                    return res.redirect('/forgot');
+                }
                 
                 user.passwordResetToken = rand;
                 user.passwordResetExpires = Date.now() + 60*60*1000;
@@ -292,6 +297,14 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     failureFlash: true
 }));
 
+// Google Login
+app.get('/auth/google', passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email']}));
+
+app.get('/auth/google/callback', passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
 
 
 // Profile Page

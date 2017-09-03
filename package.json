@@ -31,6 +31,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0"
   }
 }

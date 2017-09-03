@@ -96,8 +96,24 @@ body{
     margin-bottom: 0px;
 }
 
-.users a.btn.btn-block.btn-social.btn-facebook.btn-lg:hover {
+.users a.btn.btn-social.btn-facebook.btn-lg:hover {
     color : #2196f3;
+}
+
+.users a.btn.btn-social.btn-google.btn-lg {
+    color : #F44336;
+}
+
+.users a.btn.btn-social.btn-google.btn-lg:hover {
+    color : #FA1505;
+}
+
+div.facebook {
+    text-align: center;
+}
+
+div.google {
+    text-align: center;
 }
 
 

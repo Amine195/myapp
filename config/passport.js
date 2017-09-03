@@ -2,6 +2,7 @@ var passport = require('passport');
 var User = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var secret = require('../secret/secret');
 
 passport.serializeUser((user, done) => {
@@ -42,6 +43,11 @@ passport.use('local.login', new LocalStrategy({
             return done(null, false, req.flash('error', messages));
         }
 
+        if(user.google !== ''){
+            req.flash('error', 'No Account With That Email Exist Or Email is google');
+            return done(null, false, req.flash('error', messages));
+        }
+
         if(!user.validPassword(password)){
             messages.push('Password is not Invalid');
             return done(null, false, req.flash('error', messages));
@@ -64,7 +70,7 @@ passport.use(new FacebookStrategy(secret.facebook, (req, token, refreshToken, pr
             newUser.facebook = profile.id;
             newUser.username = profile.displayName;
             newUser.password = newUser.encryptPassword();
-            newUser.email = profile._json.email;
+            newUser.email = profile.emails[0].value;
             newUser.active = true;
             newUser.tokens.push({token:token});
 
@@ -78,3 +84,29 @@ passport.use(new FacebookStrategy(secret.facebook, (req, token, refreshToken, pr
     })
 }));
 
+passport.use(new GoogleStrategy(secret.google, (req, token, refreshToken, profile, done) => {
+    User.findOne({google:profile.id}, (err, user) => {
+        if(err){
+            return done(err);
+        }
+
+        if(user){
+            done(null, user);
+        }else{
+            var newUser = new User();
+            newUser.google = profile.id;
+            newUser.username = profile.displayName;
+            newUser.password = newUser.encryptPassword();
+            newUser.email = profile.emails[0].value;
+            newUser.active = true;
+            newUser.tokens.push({token:token});
+
+            newUser.save(function(err) {
+                if(err){
+                    console.log(err);
+                }
+                done(null, newUser);
+            });
+        }
+    })
+}));
