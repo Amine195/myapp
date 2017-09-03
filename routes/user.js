@@ -59,7 +59,6 @@ app.post('/register', registervalidate, function (req, res, next) {
                 newUser.password = newUser.encryptPassword(req.body.password);
                 newUser.secretToken = rand;
                 newUser.secretTokenExpires = Date.now() + 60*60*1000;
-                newUser.active = false;
 
                 newUser.save((err) => {
                     callback(err, rand, newUser);
@@ -272,6 +271,16 @@ app.post('/login', loginValidation, passport.authenticate('local.login', {
     }
     res.redirect('/profile');
 });
+
+
+// Facebook Login
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
 
 
 
