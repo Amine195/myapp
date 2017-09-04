@@ -13,7 +13,8 @@ var userSchema = new Schema({
     facebook: { type: String, default: '' },
     google: { type: String, default: '' },
     tokens: Array,
-    active: { type: Boolean, default: false }
+    active: { type: Boolean, default: false },
+    products: [{ type: Schema.Types.ObjectId, ref: 'Product'}]
 });
 
 userSchema.methods.encryptPassword = (password) => {

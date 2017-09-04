@@ -88,7 +88,6 @@ app.post('/add-product', function(req, res, next) {
     product.wilaya = req.body.wilaya;
     product.presentation = req.body.presentation;
     product.description = req.body.description;
-    product.created = Date.now();
     product.tel = req.body.tel;
     product.price = req.body.price;
     product.viewcount = 0;

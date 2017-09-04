@@ -10,7 +10,7 @@ var productSchema = new Schema({
     wilaya: String,
     presentation: String,
     description: String,
-    created: Date,
+    created: { type:Date, default: Date.now() },
     modified: Date,
     tel: Number,
     price: Number,
