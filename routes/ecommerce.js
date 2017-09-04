@@ -80,7 +80,8 @@ app.post('/upload', (req, res) => {
 // Add-product POST
 app.post('/add-product', function(req, res, next) {
 
-    var product = new Product()
+    var product = new Product();
+    
     product.user = req.user._id;
     product.name = req.body.name;
     product.category = req.body.category;

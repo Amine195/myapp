@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var relationship = require("mongoose-relationship");
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -14,7 +15,7 @@ var userSchema = new Schema({
     google: { type: String, default: '' },
     tokens: Array,
     active: { type: Boolean, default: false },
-    products: [{ type: Schema.Types.ObjectId, ref: 'Product'}]
+    product: [{ type: Schema.Types.ObjectId, ref: 'Product'}]
 });
 
 userSchema.methods.encryptPassword = (password) => {

@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 var integerValidator = require('mongoose-integer');
+var relationship = require("mongoose-relationship");
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User'},
+    user: { type: Schema.Types.ObjectId, ref: 'User', childPath:"product"},
     name: String,
     category: String,
     subcategory: String,
@@ -19,5 +20,6 @@ var productSchema = new Schema({
 });
 
 productSchema.plugin(integerValidator);
+productSchema.plugin(relationship, { relationshipPathName:'user' });
 
 module.exports = mongoose.model('Product', productSchema);
