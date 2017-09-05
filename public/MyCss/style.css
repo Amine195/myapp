@@ -354,3 +354,10 @@ footer p{
 div.progress-bar {
     background-color: #4caf50;
 }
+
+/* starRating */
+#starRating, .starRating {
+    font-family: 'FontAwesome';
+    color: #bbbb00;
+    font-size: 15px;
+}

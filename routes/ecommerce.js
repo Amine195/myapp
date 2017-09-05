@@ -7,6 +7,8 @@ var jsesc = require('jsesc');
 // Import Require
 var User = require('../models/user');
 var Product = require('../models/product');
+var Review = require('../models/review');
+
 
 module.exports = (app) => {
 
@@ -105,7 +107,14 @@ app.post('/add-product', function(req, res, next) {
 app.get('/product/:id', function(req, res, next) {
     Product
         .findById({ _id: req.params.id })
-        .populate('user')
+        .populate({ path:'user', select:'username' })
+        .populate({
+            path: 'reviews',
+            populate : {
+                path:'user',
+                select: 'username'
+            }
+        })
         .exec(function(err, product) {
         if (err) {
             return next(err);
@@ -201,8 +210,39 @@ app.get('/search-advanced', function(req, res, next) {
 });
 
 // Review Page
-app.get('/review', function (req, res, next) {
-    res.render('ecommerce/review', {title: 'review'});
+app.get('/product/:id/review', function (req, res, next) {
+
+    Product
+        .findById({_id: req.params.id})
+        .exec(function (err, product) {
+            if (err) {
+                return next (err);
+            }
+
+            console.log(req.params.id);
+            return res.render('ecommerce/review', {
+                title: 'Review',
+                product: product
+            });
+        });
+});
+
+// Review POST
+app.post('/product/:id/review', function (req, res, next) {
+
+    var review = new Review();
+
+    review.user = req.user._id;
+    review.title = req.body.title;
+    review.description = req.body.description;
+    review.starRating = req.body.starRating; 
+    review.product = req.params.id;
+
+    review.save(function(err) {
+        if (err) return next(err);
+        // req.flash('success', 'Successfully added a category');
+        return res.redirect('/ecommerce');
+    });
 });
 
 

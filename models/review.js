@@ -5,14 +5,14 @@ var Schema = mongoose.Schema;
 
 var reviewSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User'},
-    product: { type: Schema.Types.ObjectId, ref: 'Product', childPath:"review"},
+    product: { type: Schema.Types.ObjectId, ref: 'Product', childPath:"reviews"},
     title: String,
     description: String,
     starRating: {type: Number, integer: true},
     created: { type:Date, default: Date.now() }
 });
 
-productSchema.plugin(integerValidator);
-productSchema.plugin(relationship, { relationshipPathName:'product' });
+reviewSchema.plugin(integerValidator);
+reviewSchema.plugin(relationship, { relationshipPathName:'product' });
 
-module.exports = mongoose.model('Review', productSchema);
+module.exports = mongoose.model('Review', reviewSchema);

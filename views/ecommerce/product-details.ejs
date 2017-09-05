@@ -7,7 +7,7 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-4">
-                <img src="<%= product.thumbNailImg %>" class="img-responsive" />
+                <img src="/uploads/<%= product.thumbNailImg %>" class="img-responsive" />
             </div>
             <div class="col-md-4">
                 <blockquote>
@@ -26,6 +26,10 @@
                 <blockquote>
                     <p>Date d'ajout :</p>
                     <small><%= product.created %></small>
+                </blockquote>
+                <blockquote>
+                    <p>Review Count :</p>
+                    <small><%= product.reviews.length %></small>
                 </blockquote>
             </div>
             <div class="col-md-4">
@@ -49,6 +53,30 @@
         </div>
     </div> 
     <div class="col-md-4">
-        <a href="">ecrire un commantaire</a>
+        <a href="/product/<%= product.id %>/review">ecrire un commantaire</a>
     </div>
+</div>
+
+<br>
+
+<div class="container">
+    <% if( typeof product.reviews !== 'undefined' && product.reviews.length > 0 ){ %>
+    <h2>Reviews</h2>        
+    <% } %>
+
+    <% product.reviews.forEach(function(review) { %>
+        <div class="col-xs-12">
+            <h3>
+                <%= review.title %>
+                <span class="starRating">
+                    <% for(var i = 0; i < review.starRating; i++){ %>
+                        &#xf005;
+                    <% } %>
+                </span>
+            </h3>
+            <p><%= review.description %></p>
+            posted by: <p><%= review.user.username %></p>
+            <hr>
+        </div>
+    <% }) %>
 </div>

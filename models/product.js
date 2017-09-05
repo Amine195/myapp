@@ -17,7 +17,7 @@ var productSchema = new Schema({
     price: Number,
     viewcount: {type: Number, integer: true},
     thumbNailImg: String,
-    review: [{ type: Schema.Types.ObjectId, ref: 'Review'}]
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review'}]
 });
 
 productSchema.plugin(integerValidator);

@@ -1,0 +1,42 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="container details-container">
+    <h2>Review: <%= product.name %></h2>
+    <form action="/product/<%= product.id %>/review" method="post">
+
+        <div class="form-group">
+            <label for="titleInput">Title</label>
+            <input type="text" class="form-control" id="titleInput" name="title">
+        </div>
+
+        <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <textarea class="form-control" id="descriptionInput" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="starSelect">Star Rating</label>
+            <select class="form-control" name="starRating" id="starRating">
+                <option value="1">
+                    &#xf005;
+                </option>
+                <option value="2">
+                    &#xf005; &#xf005;
+                </option>
+                <option value="3">
+                    &#xf005; &#xf005; &#xf005;
+                </option>
+                <option value="4">
+                    &#xf005; &#xf005; &#xf005; &#xf005;
+                </option>
+                <option value="5">
+                    &#xf005; &#xf005; &#xf005; &#xf005; &#xf005;
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Poster</button>
+    </form>
+</div>
