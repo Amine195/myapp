@@ -200,4 +200,10 @@ app.get('/search-advanced', function(req, res, next) {
     });
 });
 
+// Review Page
+app.get('/review', function (req, res, next) {
+    res.render('ecommerce/review', {title: 'review'});
+});
+
+
 }
