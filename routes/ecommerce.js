@@ -9,6 +9,9 @@ var User = require('../models/user');
 var Product = require('../models/product');
 var Review = require('../models/review');
 
+// Average
+var {arrayAverage} = require('../average');
+
 
 module.exports = (app) => {
 
@@ -137,9 +140,13 @@ app.get('/product/:id', function(req, res, next) {
                 });
             }
             else {
+                console.log(product.ratingNumber);
+                var avg = arrayAverage(product.ratingNumber);
+                console.log(avg);
                 res.render('ecommerce/product-details', {
                     title: 'Details',
-                    product: product
+                    product: product,
+                    average: avg
                 }); 
             }
         }

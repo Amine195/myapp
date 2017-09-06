@@ -48,6 +48,9 @@
                 <blockquote>
                     <p>Count View :</p>
                     <small>(<%= product.viewcount %>)</small>
+                </blockquote><blockquote>
+                    <p>Average :</p>
+                    <small><%= average %> ( <%= product.ratingNumber.length %> )</small>
                 </blockquote>
             </div>
         </div>
@@ -75,7 +78,7 @@
                 </span>
             </h3>
             <p><%= review.description %></p>
-            posted by: <p><%= review.user.username %></p>
+            posted by: <p><%= review.user.username %> - <%= review.created %> -</p>
             <hr>
         </div>
     <% }) %>
