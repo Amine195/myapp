@@ -8,7 +8,7 @@ var reviewSchema = new Schema({
     product: { type: Schema.Types.ObjectId, ref: 'Product', childPath:"reviews"},
     title: String,
     description: String,
-    starRating: {type: Number, integer: true},
+    starRating: { type: Number, integer: true },
     created: { type:Date, default: Date.now() }
 });
 

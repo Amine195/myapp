@@ -17,7 +17,7 @@ var productSchema = new Schema({
     price: Number,
     viewcount: {type: Number, integer: true},
     thumbNailImg: String,
-    ratingNumber: [ Number ],
+    ratingNumber: [{ type: Number, integer: true }],
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review'}]
 });
 
