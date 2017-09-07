@@ -3,6 +3,7 @@ var formidable = require('formidable');
 var path = require('path');
 var fs = require('fs');
 var jsesc = require('jsesc');
+var async = require('async');
 
 // Import Require
 var User = require('../models/user');
@@ -31,10 +32,12 @@ function paginate(req, res, next) {
         if (err) return next(err);
         Product.count().exec(function(err, count) {
         if (err) return next(err);
+        //var avg = arrayAverage(products.ratingNumber);
         res.render('ecommerce/ecommerce', {
             title: 'Ecommerce',
             products: products,
-            pages: count / perPage
+            pages: count / perPage,
+            //average: avg
         });
         });
     });
@@ -133,16 +136,16 @@ app.get('/product/:id', function(req, res, next) {
                 product.viewcount++;
                 product.save(function (err) {
                     if (err) return next(err);
+                    var avg = arrayAverage(product.ratingNumber);
                     res.render('ecommerce/product-details', {
                         title: 'Details',
-                        product: product
+                        product: product,
+                        average: avg
                     }); 
                 });
             }
             else {
-                console.log(product.ratingNumber);
                 var avg = arrayAverage(product.ratingNumber);
-                console.log(avg);
                 res.render('ecommerce/product-details', {
                     title: 'Details',
                     product: product,
@@ -234,23 +237,44 @@ app.get('/product/:id/review', function (req, res, next) {
         });
 });
 
-// Review POST
+// Register POST
 app.post('/product/:id/review', function (req, res, next) {
+    
+        async.waterfall([
+    
+            // Create reviews
+            function(callback){
+                var review = new Review();
+                
+                    review.user = req.user._id;
+                    review.title = req.body.title;
+                    review.description = req.body.description;
+                    review.starRating = req.body.starRating; 
+                    review.product = req.params.id;
+                
+                    review.save(function(err) {
+                        callback(err, review);
+                    });
+                },          
+    
+            // find product
+            function(review, callback) {
+                Product
+                    .findById({ _id: req.params.id })
+                    .exec(function(err, product) {
+                    callback(err, review, product)
+                });
+            },
 
-    var review = new Review();
-
-    review.user = req.user._id;
-    review.title = req.body.title;
-    review.description = req.body.description;
-    review.starRating = req.body.starRating; 
-    review.product = req.params.id;
-
-    review.save(function(err) {
-        if (err) return next(err);
-        // req.flash('success', 'Successfully added a category');
-        return res.redirect('/ecommerce');
+            // push RatingNumber
+            function(review, product, callback) {
+                Product.update({ _id : req.params.id },
+                { $push: { ratingNumber : req.body.starRating }},
+                (err) => {
+                    req.flash('success', 'Your review has been added.');
+                    res.redirect('/product/'+req.params.id);
+                });
+            }
+        ]);
     });
-});
-
-
 }
