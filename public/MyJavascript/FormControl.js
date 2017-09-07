@@ -188,5 +188,14 @@ $(document).ready(function() {
         toClick.trigger('click');
     }, 5000);
 
+    // jquery rating
+    $.fn.raty.defaults.path = '/MyImg/';
+    $('.star').raty({
+        readOnly : true,
+        score: function(data){
+            return $(this).attr('data-score');
+        }
+    });
+
 });
 
