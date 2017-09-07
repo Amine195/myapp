@@ -16,6 +16,7 @@ var flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var moment = require('moment');
+var _ = require('underscore');
 
 // import var
 var User = require('./models/user');
@@ -54,6 +55,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.locals._ = _;
 
 // Middleware user
 app.use(function(req, res, next) {

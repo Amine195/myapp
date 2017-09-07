@@ -8,7 +8,17 @@
 
         <div class="index-content">
             <div class="container">
+
+                <% arrayAverage = function(arr) {
+                    return _.reduce(arr, (num1, num2) => {
+                        return num1 + num2;
+                    }, 0) / (arr.length === 0 ? 1 : arr.length);
+                } %>
+
                 <% for (var i = 0; i < products.length; i++) { %>
+
+                    <% var total = arrayAverage(products[i].ratingNumber) %>
+
                     <a href="/product/<%= products[i]._id %>">
                         <div class="col-md-3">
                             <div class="card">
@@ -16,10 +26,12 @@
                                 <h4><%= products[i].name %></h4>
                                 <p><%= products[i].presentation %></p>
                                 <!-- <a href="blog-ici.html" class="blue-button">Read More</a> -->
-                                <!-- <span class="star" data-score="<%= products[i].average %>"></span> -->
                                 <p>Posted By: <%= products[i].user.username %></p>
+                                <p><%= products[i].viewcount %></p>
+                                <p><%= moment(products[i].created).format('LL') %></p>
                                 <br>
                             </div>
+                            <span class="star" data-score="<%= total %>"></span> <%= total.toFixed(1) %> (<%= products[i].ratingNumber.length %>)
                         </div>
                     </a>
                 <% } %>

@@ -32,12 +32,10 @@ function paginate(req, res, next) {
         if (err) return next(err);
         Product.count().exec(function(err, count) {
         if (err) return next(err);
-        //var avg = arrayAverage(products.ratingNumber);
         res.render('ecommerce/ecommerce', {
             title: 'Ecommerce',
             products: products,
             pages: count / perPage,
-            //average: avg
         });
         });
     });
@@ -271,7 +269,7 @@ app.post('/product/:id/review', function (req, res, next) {
                 Product.update({ _id : req.params.id },
                 { $push: { ratingNumber : req.body.starRating }},
                 (err) => {
-                    req.flash('success', 'Your review has been added.');
+                    //req.flash('success', 'Your review has been added.');
                     res.redirect('/product/'+req.params.id);
                 });
             }
