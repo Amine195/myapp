@@ -15,6 +15,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var moment = require('moment');
 
 // import var
 var User = require('./models/user');
@@ -59,6 +60,9 @@ app.use(function(req, res, next) {
     res.locals.user = req.user;
     next();
 });
+
+// Middleware moment
+app.locals.moment = moment;
 
 // Routes
 require('./routes/user')(app, passport);

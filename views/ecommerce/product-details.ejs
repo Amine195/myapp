@@ -25,7 +25,7 @@
                 </blockquote>
                 <blockquote>
                     <p>Date d'ajout :</p>
-                    <small><%= product.created %></small>
+                    <small><%= moment(product.created).format('LL') %></small>
                 </blockquote>
                 <blockquote>
                     <p>Review Count :</p>
@@ -78,7 +78,7 @@
                 </span>
             </h3>
             <p><%= review.description %></p>
-            posted by: <p><%= review.user.username %> - <%= review.created %> -</p>
+            posted by: <p><%= review.user.username %> - <%= moment(product.created).format('LL') %> -</p>
             <hr>
         </div>
     <% }) %>
