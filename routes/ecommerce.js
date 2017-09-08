@@ -238,7 +238,7 @@ app.get('/product/:id/review', function (req, res, next) {
 // Register POST
 app.post('/product/:id/review', function (req, res, next) {
     
-        async.waterfall([
+        async.parallel([
     
             // Create reviews
             function(callback){
@@ -251,28 +251,27 @@ app.post('/product/:id/review', function (req, res, next) {
                     review.product = req.params.id;
                 
                     review.save(function(err) {
-                        callback(err, review);
+                        callback(null, review);
                     });
                 },          
     
             // find product
-            function(review, callback) {
+            function(callback) {
                 Product
                     .findById({ _id: req.params.id })
                     .exec(function(err, product) {
-                    callback(err, review, product)
+                    // push RatingNumber
+                    Product.update({ _id : req.params.id },
+                    { $push: { ratingNumber : req.body.starRating }},
+                    function(err) {
+                        callback(null, product);
+                    });
                 });
             },
-
-            // push RatingNumber
-            function(review, product, callback) {
-                Product.update({ _id : req.params.id },
-                { $push: { ratingNumber : req.body.starRating }},
-                (err) => {
-                    //req.flash('success', 'Your review has been added.');
-                    res.redirect('/product/'+req.params.id);
-                });
-            }
-        ]);
+        ],
+        function(err, results) {
+            //req.flash('success', 'Your review has been added.');
+            res.redirect('/product/'+req.params.id);
+        });
     });
 }
