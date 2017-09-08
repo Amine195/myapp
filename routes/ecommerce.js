@@ -185,6 +185,7 @@ app.get('/search-advanced', function(req, res, next) {
     var name = jsesc(req.param('name'));
     var price = jsesc(req.param('price'));
     var category = jsesc(req.param('category'));
+    var onSale = jsesc(req.param('onSale'));
 
     var searchOptions = {};
 
@@ -196,7 +197,7 @@ app.get('/search-advanced', function(req, res, next) {
     }
 
     category !== "*" ? searchOptions.category = category :null;
- /*    allParams.onSale === "on" ? searchOptions.onSale = true :null; */
+    onSale === "on" ? searchOptions.onSale = true :null;
     console.log(searchOptions); 
 
 
@@ -276,4 +277,25 @@ app.post('/product/:id/review', function (req, res, next) {
             res.redirect('/product/'+req.params.id+'/review');
         });
     });
+
+
+    // promo page
+    app.get('/onSale', function (req, res, next) {
+        
+        Product.find({onSale:true}).exec(function (err, products) {
+            if (err) {
+                console.log(err);
+            }
+            var noResults = false;
+            if (products.length < 1) {
+                noResults = true;
+            }
+            return res.render('ecommerce/search-result', {
+                title: 'Search',
+                products: products,
+                noResults:noResults
+            });
+        });
+    });
+
 }

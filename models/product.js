@@ -15,6 +15,8 @@ var productSchema = new Schema({
     modified: Date,
     tel: Number,
     price: Number,
+    salePrice: {type: Number, default: null},
+    onSale: {type: Boolean, default: false},
     viewcount: {type: Number, integer: true},
     thumbNailImg: String,
     ratingNumber: [{ type: Number, integer: true }],

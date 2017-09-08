@@ -23,6 +23,26 @@
                         <div class="col-md-3">
                             <div class="card">
                                 <img src="/uploads/<%= products[i].thumbNailImg %>">
+
+                                <% if(products[i].onSale){ %>
+                                    <div>
+                                      Original Price :
+                                      <span class="originalPrice" style="color: #9c0606; text-decoration: line-through;">
+                                        $ <%= products[i].price %>
+                                      </span>
+                                    </div>
+                                    <div>
+                                      Sale Price :
+                                      <span class="price sale" style="font-size: 140%; color: #0e6b0e;">
+                                        $ <%= products[i].salePrice %>
+                                      </span>
+                                    </div>
+                                <% } else { %>
+                                    <div class="price" style="font-size: 140%; color: #0e6b0e;">
+                                      $ <%= products[i].price %>
+                                    </div>
+                                <% } %>
+
                                 <h4><%= products[i].name %></h4>
                                 <p><%= products[i].presentation %></p>
                                 <!-- <a href="blog-ici.html" class="blue-button">Read More</a> -->
