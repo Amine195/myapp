@@ -2,6 +2,13 @@
 
 <% include ../navbar/navbar %>
 
+<% if(noErrors) { %>
+    <h5 style="color: #4caf50;
+    text-align:center;">
+    <i class="fa fa-check" aria-hidden="true">
+    </i>&nbsp;&nbsp;&nbsp;&nbsp; <%= success %></h5>
+<% } %>
+
 <div class="container details-container">
     <h2>Review: <%= product.name %></h2>
     <form action="/product/<%= product.id %>/review" method="post">

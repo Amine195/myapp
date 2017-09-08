@@ -227,10 +227,12 @@ app.get('/product/:id/review', function (req, res, next) {
                 return next (err);
             }
 
-            console.log(req.params.id);
+            var success = req.flash('success');
             return res.render('ecommerce/review', {
                 title: 'Review',
-                product: product
+                product: product,
+                success: success,
+                noErrors: success.length > 0
             });
         });
 });
@@ -270,8 +272,8 @@ app.post('/product/:id/review', function (req, res, next) {
             },
         ],
         function(err, results) {
-            //req.flash('success', 'Your review has been added.');
-            res.redirect('/product/'+req.params.id);
+            req.flash('success', 'Your review has been added.');
+            res.redirect('/product/'+req.params.id+'/review');
         });
     });
 }
