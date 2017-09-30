@@ -32,11 +32,11 @@ function paginate(req, res, next) {
         if (err) return next(err);
         Product.count().exec(function(err, count) {
         if (err) return next(err);
-        res.render('ecommerce/ecommerce', {
-            title: 'Ecommerce',
-            products: products,
-            pages: count / perPage,
-        });
+            res.render('ecommerce/ecommerce', {
+                title: 'Ecommerce',
+                products: products,
+                pages: count / perPage,
+            });
         });
     });
 
@@ -50,6 +50,24 @@ app.get('/ecommerce', function (req, res, next) {
         //res.render('home', {title: 'Home'});
         paginate(req, res, next);
     }
+});
+
+// Ecommerce Page
+app.get('/aggregate', function (req, res, next) {
+    Product.aggregate([
+        {
+            "$group": {
+                "_id": "$wilaya",
+                "total": { "$sum": 1 }
+            }
+        }
+    ], function (err, results) {
+        console.log(results);
+        res.render('ecommerce/aggregate', {
+            title: 'Ecommerce',
+            results: results
+        });
+    });
 });
 
 // Ecommerce Pagination

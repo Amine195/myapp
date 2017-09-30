@@ -1,0 +1,11 @@
+<% layout('layout') %>
+
+<% include ../navbar/navbar %>
+
+<div class="container">
+    <div class="row">
+        <% results.forEach(function(result) { %>
+        <h5><%= result._id %>: (<%= result.total %>)</h5>
+        <% }) %>
+    </div>
+</div>
